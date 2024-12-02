@@ -31847,3 +31847,54 @@ pokemon = [
   }
 ]
 
+def displayPokemon(pokemon):
+   print()
+   print(pokemon['name']['english'].upper() + "! I CHOOSE YOU!")
+   print(pokemon['name']['english'], "is a", ", ".join(pokemon['type']), "type Pokémon")
+   print("Stats:")
+   for stat, value in pokemon['base'].items():
+       print(stat + ":", value)
+   print("Description:")
+   print(pokemon["description"])
+
+
+def lookupById(pokemonList, pokemonId):
+   for pokemon in pokemonList:
+       if pokemon["id"] == pokemonId:
+           return pokemon
+   return None
+
+
+def lookupByName(pokemonList, name):
+   for pokemon in pokemonList:
+       if pokemon["name"]["english"].lower() == name.lower():
+           return pokemon
+   return None
+
+
+while True:
+   print("\nChoose a Pokémon by:")
+   print("1. ID")
+   print("2. English Name")
+   choice = input("Choice: ")
+
+
+   if choice == "1":
+       try:
+           pokemonId = int(input("Enter the ID of your Pokémon: "))
+           result = lookupById(pokemon, pokemonId)
+           if result:
+               displayPokemon(result)
+           else:
+               print("I'm sorry, I can't find a Pokémon with that ID.")
+       except ValueError:
+           print("Invalid ID. Please enter a number.")
+   elif choice == "2":
+       name = input("Enter the English Name of your Pokémon: ")
+       result = lookupByName(pokemon, name)
+       if result:
+           displayPokemon(result)
+       else:
+           print("I'm sorry, I can't find the name of the Pokémon. Did you spell it correctly?")
+   else:
+       print("Invalid choice. Please select 1 or 2.")
